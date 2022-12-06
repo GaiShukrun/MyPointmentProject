@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>welcome to MyPointment</div>
+{% if user.is_authenticated%}
+    {% if user.is_superuser %}
+        <div>
+        </div>
+    {% elif user.is_doctor %}
+        <div>
+
+        </div>
+    {% endif %}
+{% else %}
+    <a href="{% url 'login' %}">login</a>
+    <h1>Sign Up</h1>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign Up</button>
+</form>
+
+    </form>
+{% endif %}
+
+</body>
+</html>

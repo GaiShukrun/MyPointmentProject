@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>log in</title>
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+</form>
+    <form method="POST">
+
+
+
+            <div class ="choose-group">
+
+
+                <label> Choose Specification </label >
+                <select name="specification " id="specification" >
+
+
+                    <option value="1">רופא</option>
+                    <option value="2">מטופל</option>
+                    <option value="2">אדמין</option>
+
+                </select>
+
+            </div>
+        </form>
+</body>
+</html>

@@ -1,0 +1,76 @@
+{% extends 'main/base.html' %}
+{% block title %}DafMetupal{% endblock %}
+{% block content %}
+<style>
+    .img3{
+        position:absolute;
+        width: 115px;
+        height: 96px;
+        left: 0px;
+        top: 750px;
+
+    }
+    .img2{
+        background-repeat: no-repeat;
+        background-size: 75px 80px;
+    }
+    .Date{
+        display: center;
+        height: 100px;
+        font-size: 50px;
+        
+    }
+    .textbox{
+        position: absolute;
+        right: 400px;
+        top: 300px;
+        height: 400px;
+        width: 400px
+    }
+</style>
+<body>
+  <form method="post" action="submit">
+    {% csrf_token %}
+    {{form}}
+    <input type="text" id="patientComment" name="Text Box" class="textbox">
+    <img src="Login.png" class="img2"/>
+    <div class="Date">
+        <label for="DateSelect">Select Date:</label>
+        <input type="datetime-local" id="Tor" name="DateSelect" size="large">
+    </div>
+    <button id="">Confirm</button>
+  </form>
+    <input type="text" id="4" name="Text Box" class="textbox">
+    <img src="Login.png" class="img2"/>
+    <div class="Date">
+        <label for="DateSelect">Select Date:</label>
+        <input type="datetime-local" id="3" name="DateSelect" size="large">
+        <input type="button" id="saveApp" value="confirm" onclick="msg(), saveApp()">
+    </div>
+    <script>
+        function msg() {
+          alert("!!!התור נקבע בהצלחה");
+        }
+      </script>
+    <h1>FOR YOUR INFORMATION:</h1>
+
+    <main>
+    <label for="textbox">Please Write your health problem in the text box on the right:</label>
+      <h1>Holidays and Shabat</h1>
+      <p>please notice that hospitals work 24/7</p>
+    
+      <article>
+        <h2>Just a reminder! if you can not arrive, please cancel your appointment.<h2>
+        <p>In the personal space you can cancel your appointment.</p>
+      <article>
+        <h2>Just a reminder! you can tell the DR. your problem Before arrival.</h2>
+        <p>On the left side of the screen write your problem before clicking CONFIRM.</p>
+      </article>
+    
+      <article>
+        <h2>Don't forget to tell your friends about MyPointment.</h2>
+        <p>Help us Spread the news.</p>
+      </article>
+    </main>
+</body>
+{% endblock %}

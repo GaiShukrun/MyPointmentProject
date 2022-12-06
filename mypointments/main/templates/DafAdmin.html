@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DafAdmin</title>
+</head>
+<h1>welcome admin</h1>
+<body>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Sign Out</button>
+    <a href="{% url 'signout' %}">login</a>
+</form>
+</body>
+</html>
