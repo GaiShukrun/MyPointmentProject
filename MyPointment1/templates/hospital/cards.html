@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <style>
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 320px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+      }
+
+      button {
+        border: none;
+        outline: 0;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+      }
+
+      button:hover,
+      a:hover {
+        opacity: 0.89;
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        padding: 10px;
+      }
+
+      a:link {
+        text-decoration: none;
+      }
+
+      a {
+        color: white;
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="grid-container">
+      <div class="grid-item">
+        <div class="card">
+          <img src="{% static "images/admin2.png" %}" alt="admin"
+          style="width:100%">
+          <p>
+            <button><a href="/adminclick">ADMIN</a></button>
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-item">
+        <div class="card">
+          <img src="{% static "images/doctor.png" %}" alt="doctor"
+          style="width:100%">
+          <p>
+            <button><a href="/doctorclick">DOCTOR</a></button>
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-item">
+        <div class="card">
+          <img src="{% static "images/patient.png" %}" alt="patient"
+          style="width:100%">
+          <p>
+            <button><a href="/patientclick">PATIENT</a></button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
