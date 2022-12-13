@@ -1,0 +1,23 @@
+ <div class="nav-container">
+        <div class="wrapper">
+            <nav>
+                <div class="logo">
+                    MyPointment
+                </div>
+                <ul class="nav-items">
+                    <li>
+                        <a href="#">הזמנת תורים</a>
+                    </li>
+                    <li>
+                        <a href="#">התורים שלי</a>
+                    </li>
+                    <li>
+                        <a href="#">פרטים אישיים</a>
+                    </li>
+                    <li>
+                        <a href="#">לוח שנה</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
