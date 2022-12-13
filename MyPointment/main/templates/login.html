@@ -1,0 +1,113 @@
+{% extends 'Base.html' %}
+
+{% block content %}      
+
+{% load crispy_forms_tags %}
+<!--Login--> 
+<div class="container py-5">
+  <h1>Login</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ login_form|crispy }}
+    
+    <button class="btn btn-primary" type="submit">Login</button>
+  </form>
+  <p class="text-center">Don't have an account? <a href="/register">Create an account</a>.</p>
+  <p class="text-center">Forgot Password? <a href="/password_reset">Reset Password</a>.</p>
+</div>
+
+{% endblock %}
+
+
+
+
+
+{% comment %} {% extends 'Base.html' %}
+
+{% block content %}
+  <h2>Log in to MyPoinment</h2>
+  {% if form.errors %}
+    <p style="color: red">Your username and password didn't match. Please try again.</p>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}" />
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+        {% if field.help_text %}
+          <p><small style="color: grey">{{ field.help_text }}</small></p>
+        {% endif %}
+      </p>
+    {% endfor %}
+    <button type="submit">Log in</button>
+    <a href="{% url 'register' %}">New to MyPoinment? Sign up</a>
+  </form>
+{% endblock %} {% endcomment %}
+{% comment %} {% extends 'base.html' %}
+{% load static  %}
+
+ {%block content%} 
+ {% if message.tags %}{{message.tags}} {% endif %}
+<html>
+    <style>
+        .imgLog{
+            display:block;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        
+        .form-group{
+            font-style: italic;
+            font-size:xx-large;
+        }
+        .form-control{
+            font-size: xx-large;
+            width: 400px;height: 50px ;
+        }
+        label{
+            display: grid;
+            grid-gap :5px;
+            text-align: center;
+        }
+        .choose-group{
+            font-style: italic;
+            font-size:xx-large;
+            
+        } 
+        #specification{
+            width: 400px;height: 50px ;font-size: x-large
+        } 
+    </style>
+    <form  method='POST'  >
+    {% csrf_token %}
+    {{ form }}
+            <body>
+                    {% comment %} <image src="{% static '/images.jpg' %}  " class="imgLog" width="10%" ></image> {% endcomment %}
+                    
+                    {% comment %} <center>
+                        
+                        <div class="form-group">
+                            <label  for="email">Email adress</label>
+                            <input type="text" class="form-control"  name="email"  placeholder= "Enter email"/> 
+                        </div>
+                        <div class="form-group">
+                            <label for="username">username</label>
+                            <input type="text" class="form-control"  name="username" placeholder="Enter username"/> 
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="text" class="form-control" name="password" placeholder="Enter password"/> 
+                        </div>
+                        
+                        <button style="width: 200px;height: 50px ;font-size: xx-large;"   type="Log-in" value = "Log-in" class="btn btn-primary">Log-in</button>
+                    </center>
+            </body>
+    </form>
+</html> {% endcomment %}
+
+{% comment %} {% endblock %}  {% endcomment %} 
