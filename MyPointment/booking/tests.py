@@ -9,8 +9,8 @@ class AppointmentTestCase(TestCase):
   def test_appointment_name(self):
     john = Appointment.objects.get(name="John Doe")
     jane = Appointment.objects.get(name="Jane Smith")
-    self.assertEqual(john.name, "John Doe")
-    self.assertEqual(jane.name, "Jane Smith")
+    self.assertEqual(john.username, "John Doe")
+    self.assertEqual(jane.username, "Jane Smith")
     
   def test_appointment_time(self):
     john = Appointment.objects.get(name="John Doe")

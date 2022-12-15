@@ -37,6 +37,7 @@ def booking(request):
 
 def bookingSubmit(request):
     user = request.user
+    workdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday"]
     times = [
         "7:30 AM","8:00 AM","8:30 AM","9:00 AM","9:30 AM","10:00 AM","10:30 AM","11:00 AM","11:30 AM","12:00 PM","12:30 PM",
         "1:00 PM","1:30 PM","2:00 PM","2:30 PM","3:00 PM",
@@ -60,7 +61,7 @@ def bookingSubmit(request):
 
         if service != None:
             if day <= maxDate and day >= minDate:
-                if date == 'Monday' or date == 'Saturday' or date == 'Wednesday':
+                if date in workdays:
                     if Appointment.objects.filter(day=day).count() < 11:
                         if Appointment.objects.filter(day=day, time=time).count() < 1:
                             AppointmentForm = Appointment.objects.get_or_create(
@@ -70,7 +71,7 @@ def bookingSubmit(request):
                                 time = time,
                             )
                             messages.success(request, "Appointment Saved!")
-                            return redirect('index')
+                            return redirect('HomePage')
                         else:
                             messages.success(request, "The Selected Time Has Been Reserved Before!")
                     else:
@@ -131,6 +132,7 @@ def userUpdate(request, id):
 
 def userUpdateSubmit(request, id):
     user = request.user
+    workdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday"]
     times = [
         "7:30 AM","8:00 AM","8:30 AM","9:00 AM","9:30 AM","10:00 AM","10:30 AM","11:00 AM","11:30 AM","12:00 PM","12:30 PM",
         "1:00 PM","1:30 PM","2:00 PM","2:30 PM","3:00 PM",
@@ -155,7 +157,7 @@ def userUpdateSubmit(request, id):
 
         if service != None:
             if day <= maxDate and day >= minDate:
-                if date == 'Monday' or date == 'Saturday' or date == 'Wednesday':
+                if date in workdays:
                     if Appointment.objects.filter(day=day).count() < 11:
                         if Appointment.objects.filter(day=day, time=time).count() < 1 or userSelectedTime == time:
                             AppointmentForm = Appointment.objects.filter(pk=id).update(
