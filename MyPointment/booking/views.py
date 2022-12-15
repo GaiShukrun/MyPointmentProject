@@ -38,11 +38,13 @@ def booking(request):
 def bookingSubmit(request):
     user = request.user
     times = [
-        "3 PM", "3:30 PM", "4 PM", "4:30 PM", "5 PM", "5:30 PM", "6 PM", "6:30 PM", "7 PM", "7:30 PM"
+        "7:30 AM","8:00 AM","8:30 AM","9:00 AM","9:30 AM","10:00 AM","10:30 AM","11:00 AM","11:30 AM","12:00 PM","12:30 PM",
+        "1:00 PM","1:30 PM","2:00 PM","2:30 PM","3:00 PM",
+        "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM"
     ]
-    today = datetime.now()
-    minDate = today.strftime('%Y-%m-%d')
-    deltatime = today + timedelta(days=21)
+    tomorrow = datetime.now() + timedelta(1)
+    minDate = tomorrow.strftime('%Y-%m-%d')
+    deltatime = tomorrow + timedelta(days=21)
     strdeltatime = deltatime.strftime('%Y-%m-%d')
     maxDate = strdeltatime
 
@@ -97,11 +99,11 @@ def userUpdate(request, id):
     appointment = Appointment.objects.get(pk=id)
     userdatepicked = appointment.day
     #Copy  booking:
-    today = datetime.today()
-    minDate = today.strftime('%Y-%m-%d')
+    tomorrow = datetime.now() + timedelta(1)
+    minDate = tomorrow.strftime('%Y-%m-%d')
 
     #24h if statement in template:
-    delta24 = (userdatepicked).strftime('%Y-%m-%d') >= (today + timedelta(days=1)).strftime('%Y-%m-%d')
+    delta24 = (userdatepicked).strftime('%Y-%m-%d') >= (tomorrow + timedelta(days=1)).strftime('%Y-%m-%d')
     #Calling 'validWeekday' Function to Loop days you want in the next 21 days:
     weekdays = validWeekday(22)
 
@@ -130,11 +132,13 @@ def userUpdate(request, id):
 def userUpdateSubmit(request, id):
     user = request.user
     times = [
-        "3 PM", "3:30 PM", "4 PM", "4:30 PM", "5 PM", "5:30 PM", "6 PM", "6:30 PM", "7 PM", "7:30 PM"
+        "7:30 AM","8:00 AM","8:30 AM","9:00 AM","9:30 AM","10:00 AM","10:30 AM","11:00 AM","11:30 AM","12:00 PM","12:30 PM",
+        "1:00 PM","1:30 PM","2:00 PM","2:30 PM","3:00 PM",
+        "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM"
     ]
-    today = datetime.now()
-    minDate = today.strftime('%Y-%m-%d')
-    deltatime = today + timedelta(days=21)
+    tomorrow = datetime.now() + timedelta(1)
+    minDate = tomorrow.strftime('%Y-%m-%d')
+    deltatime = tomorrow + timedelta(days=21)
     strdeltatime = deltatime.strftime('%Y-%m-%d')
     maxDate = strdeltatime
 
@@ -181,12 +185,12 @@ def userUpdateSubmit(request, id):
     })
 
 def staffPanel(request):
-    today = datetime.today()
-    minDate = today.strftime('%Y-%m-%d')
-    deltatime = today + timedelta(days=21)
+    tomorrow = datetime.now() + timedelta(1)
+    minDate = tomorrow.strftime('%Y-%m-%d')
+    deltatime = tomorrow + timedelta(days=21)
     strdeltatime = deltatime.strftime('%Y-%m-%d')
     maxDate = strdeltatime
-    #Only show the Appointments 21 days from today
+    #Only show the Appointments 21 days from tomorrow
     items = Appointment.objects.filter(day__range=[minDate, maxDate]).order_by('day', 'time')
 
     return render(request, 'staffPanel.html', {
@@ -199,13 +203,14 @@ def dayToWeekday(x):
     return y
 
 def validWeekday(days):
+    workdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday"]
     #Loop days you want in the next 21 days:
-    today = datetime.now()
+    tomorrow = datetime.now() + timedelta(1)
     weekdays = []
     for i in range (0, days):
-        x = today + timedelta(days=i)
+        x = tomorrow + timedelta(days=i)
         y = x.strftime('%A')
-        if y == 'Monday' or y == 'Saturday' or y == 'Wednesday':
+        if y in workdays:
             weekdays.append(x.strftime('%Y-%m-%d'))
     return weekdays
     
