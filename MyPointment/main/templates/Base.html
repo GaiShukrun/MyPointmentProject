@@ -24,8 +24,17 @@
     <title>{% block title %}Home{% endblock %}</title>
    </head>
 
+   <style>
+    .bg {
+      background-image: url({%static "images/inject.jpg"%});
+      height: 100%;
+      background-position: 0px 40px;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+   </style>
     
-<body>
+<body class="bg">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark"  >
     <button
       class="navbar-toggler"
@@ -35,13 +44,19 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbar">
+    <div class="collapse navbar-collapse justify-content-between" id="navbar">
       <div class="navbar-nav">
         <a class="nav-item nav-link" id="home" href="/">Home</a>
+        <a class="nav-item nav-link" href={%url 'booking'%}>Booking</a>
+      </div>
+
+      <div class="navbar-nav"></div> <!--For empty space-->
+
+      <div class="navbar-nav">
+        
         {% if user.is_authenticated %}
         <a class="nav-item nav-link" id="logout" href={%url 'logout'%}>Logout</a>
         <a class="nav-item nav-link" id="logout" href="UserProfile"> {{user.username}}</a>
-        <a class="nav-item nav-link" href={%url 'booking'%}>Booking</a>
 
         {% else %}
         <a class="nav-item nav-link" id="login" href="{% url 'login'%}">Login</a>
@@ -52,9 +67,6 @@
   </nav>
   
   <div class="containter">
-    {% comment %} <image src = " {% static '/navbarlogo.jpg'%} "   ></image> {% endcomment %}
-    
-
     {%block content%}
 
     {% endblock%}

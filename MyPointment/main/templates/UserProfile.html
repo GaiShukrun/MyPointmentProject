@@ -1,15 +1,21 @@
-{% extends "Base.html" %}
-{% block content %}
+{% extends 'Base.html' %}
+{% block title %} Profile{% endblock %}
+
+{% block content%}
+<style>
+    .text-center {
+        text-align: center!important;
+        margin-top: 50px;
+        margin-bottom: -40px;
+    }
+</style>
 {% load crispy_forms_tags %}
+<h1 class="text-center">Profile</h1>
 
-
-    <h1>Profile</h1>
+<div class="shadow p-4 mb-5 bg-body bg-body rounded text-black text-center m-5">
     <p>Username: {{user}}</p>
     <p>Email: {{user.email}}</p>
     <p>Password:{{user.password}}</p>
     <a href="change-password/" class="btn btn-primary">Change Password</a>
-   
-
-{% endblock content %}
-
-
+</div>
+{% endblock%}

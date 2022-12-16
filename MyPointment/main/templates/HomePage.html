@@ -1,5 +1,5 @@
 {% extends 'Base.html' %}
- 
+{% load static %}
 {%block content%}
 
 <style>
@@ -13,12 +13,32 @@
         margin-top:50px;
         font-size: 25px;
     }
+
+      
+    .bg {
+        background-image: url({%static "images/inject.jpg"%});
+        height: 100%;
+        background-position: 0px 40px;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+    
 </style>
 
-<div class="c1">
-    <h1>Hospital Management System</h1>
-    <p class="emrg">Emergency?</p>
-    <a type="button" class="btn btn-primary shadow  mt-5" href="{% url 'booking' %}">Online Booking</a>
-</div>
+<body class="bg">
+
+
+    <div class="c1">
+    
+        <h1>Hospital Management System</h1>
+    
+        <p class="emrg">Emergency?</p>
+    
+    
+        <a type="button" class="btn btn-primary shadow  mt-5" href="{% url 'booking' %}">Online Booking</a>
+
+    </div>
+</body>
 
 {% endblock %}
