@@ -52,12 +52,15 @@ def bookingSubmit(request):
     #Get stored data from django session:
     day = request.session.get('day')
     service = request.session.get('service')
-    
+    syptoms =request.session.get('syptoms')
+   
     #Only show the time of the day that has not been selected before:
     hour = checkTime(times, day)
     if request.method == 'POST':
         time = request.POST.get("time")
         date = dayToWeekday(day)
+        
+        
 
         if service != None:
             if day <= maxDate and day >= minDate:
@@ -69,6 +72,8 @@ def bookingSubmit(request):
                                 service = service,
                                 day = day,
                                 time = time,
+                                syptoms = syptoms,
+
                             )
                             messages.success(request, "Appointment Saved!")
                             return redirect('/')
