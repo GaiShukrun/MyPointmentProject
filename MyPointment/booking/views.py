@@ -71,7 +71,7 @@ def bookingSubmit(request):
                                 time = time,
                             )
                             messages.success(request, "Appointment Saved!")
-                            return redirect('HomePage')
+                            return redirect('/')
                         else:
                             messages.success(request, "The Selected Time Has Been Reserved Before!")
                     else:
@@ -167,7 +167,7 @@ def userUpdateSubmit(request, id):
                                 time = time,
                             ) 
                             messages.success(request, "Appointment Edited!")
-                            return redirect('index')
+                            return redirect('/')
                         else:
                             messages.success(request, "The Selected Time Has Been Reserved Before!")
                     else:
