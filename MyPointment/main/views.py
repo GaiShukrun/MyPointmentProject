@@ -14,8 +14,8 @@ from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-def Base(response):
-    return render(response , 'Base.html',{})
+# def Base(response):
+#     return render(response , 'Base.html',{})
 def home(response):
     return render(response , 'HomePage.html',{})
 
@@ -47,10 +47,10 @@ def register_user(request):
         #   password = form.cleaned_data.get('password')
         #   user = authenticate(username = username , password = password )
           login(request,user)
-          messages.success(request,("registretion successful"))
+          messages.success(request,("registration successful"))
           return redirect('home')
        
-        messages.error(request,("registeration errror"))
+        messages.error(request,("registration error"))
             
     
     form=SignUpForm()

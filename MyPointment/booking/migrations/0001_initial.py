@@ -24,6 +24,7 @@ class Migration(migrations.Migration):
                 ("9:00 AM", "9:00 AM"),("9:30 AM", "9:30 AM"),("10:00 AM", "10:00 AM"),("10:30 AM", "10:30 AM"),("11:00 AM", "11:00 AM"),("11:30 AM", "11:30 AM"),("12:00 PM", "12:00 PM"),("12:30 PM", "12:30 PM"),("1:00 PM", "1:00 PM"),("1:30 PM", "1:30 PM"),("2:00 PM", "2:00 PM"),("2:30 PM", "2:30 PM"),('3:00 PM', '3:00 PM'), ('3:30 PM', '3:30 PM'), ('4:00 PM', '4:00 PM'), ('4:30 PM', '4:30 PM'), ('5:00 PM', '5:00 PM'), ('5:30 PM', '5:30 PM'), ('6:00 PM', '6:00 PM'), ('6:30 PM', '6:30 PM'), ('7:00 PM', '7:00 PM'), ('7:30 PM', '7:30 PM')], default='7:30 AM', max_length=10)),
                 ('time_ordered', models.DateTimeField(blank=True, default=datetime.datetime.now)),
                 ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='auth.user')),
+                ('syptoms', models.TextField(max_length=100, blank=True))
             ],
         ),
     ]
