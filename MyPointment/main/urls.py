@@ -11,6 +11,6 @@ urlpatterns = [
     path('BhiratTor/',views.BhiratTor,name="BhiratTor"),
     path('logout/',views.logout_user,name="logout"),
     path('password_reset/', views.password_reset_request, name="password_reset"),
-    path('UserProfile/', views.profile, name='profile'),
+    # path('UserProfile/', views.profile, name='profile'),
     
 ]

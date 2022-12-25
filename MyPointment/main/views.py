@@ -92,5 +92,5 @@ def password_reset_request(request):
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name='password_reset.html', context={"password_reset_form":password_reset_form})
 
-def profile(response):
-    return render(response , 'UserProfile.html',{})
+# def profile(response):
+#     return render(response , 'UserProfile.html',{})
