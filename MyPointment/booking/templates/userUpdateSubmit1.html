@@ -1,20 +1,15 @@
-{% extends 'Base.html' %}
-{% load crispy_forms_tags %}
-{% block title %}Edit Appointment{% endblock %}
+<title>Edit Appointment</title>
+{% extends 'layout.html' %}
+{% load static %}
+{% block body %}
 
-{% block content%}
-<style>
-    .text-center {
-        text-align: center!important;
-        margin-top: 50px;
-        margin-bottom: -40px;
-    }
-</style>
-<h1 class="text-center">Edit Appointment</h1>
+
+
 
 {% if user.is_authenticated %}
+<h1 class="text-center fPersian mt-3">Edit Appointment</h1>
 
-<div class="text-center shadow p-4 mb-5 bg-body bg-body rounded text-black m-5">
+<div class="shadow p-4 mb-5 bg-body bg-body rounded text-black text-center m-5">
     <form method="post" action="{% url 'userUpdateSubmit' id %}" class="me-2 ms-2" required>
         {% csrf_token %}
         
@@ -42,4 +37,5 @@
 
 {% endif %}
 
-{% endblock%}
+
+{% endblock %}
