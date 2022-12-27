@@ -7,14 +7,15 @@ from reportlab.pdfgen import canvas
 import io 
 from fpdf import  FPDF
 from django.contrib.auth.models import User
+# Create your views here.
+
 
 def ViewAppointment(request):
     mydata = Appointment.objects.all()
+    mydata = mydata.order_by('day', 'time')
     user1 = request.user.username
-    
-        
-    return render(request,"CardiologistApp.html",{'App' : mydata,'name':user1} )
-# Create your views here.
+    return render(request,"DoctorApp.html",{'App' : mydata,'name':user1} )
+
 def generatePDF(request):
     pdf = FPDF('P', 'mm', 'A4')
 

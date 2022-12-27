@@ -3,7 +3,7 @@ from . import views
 from django.contrib.auth import views as auth_views
 from .views import generatePDF
 urlpatterns = [ 
-    path('CardiologistApp/',views.ViewAppointment,name="CardiologistApp"),
-    path('CardiologistApp/pdf/',views.generatePDF),
+    path('DoctorApp/',views.ViewAppointment,name="DoctorApp"),
+    path('DoctorApp/pdf/',views.generatePDF),
 
 ]

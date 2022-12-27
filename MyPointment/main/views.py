@@ -27,9 +27,9 @@ def login_user(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
-                if User.objects.filter(groups__name__in=['Doctors']):
+                if (username == "Cardiologist" or username == "Oncologist" or username == "Psychiatrist" or username == "Neurologist"):
                     login(request,user)
-                    return redirect("CardiologistApp")
+                    return redirect("DoctorApp")
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.")
                 return redirect("home")
