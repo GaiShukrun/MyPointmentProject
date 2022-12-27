@@ -27,11 +27,15 @@ def login_user(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
+                if User.objects.filter(groups__name__in=['Doctors']):
+                    login(request,user)
+                    return redirect("CardiologistApp")
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.")
                 return redirect("home")
             else:
                 messages.error(request,"Invalid username or password.")
+           
         else:
             messages.error(request,"Invalid username or password.")
     form = AuthenticationForm()
