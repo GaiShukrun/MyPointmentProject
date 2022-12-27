@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'main',
     'crispy_forms',
     'booking',
+    'Doctors',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [

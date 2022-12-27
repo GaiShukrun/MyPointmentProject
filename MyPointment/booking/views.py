@@ -2,6 +2,16 @@ from django.shortcuts import render, redirect
 from datetime import datetime, timedelta
 from .models import *
 from django.contrib import messages
+from django.template.loader import render_to_string
+from django.db.models.query_utils import Q
+from django.utils.http import urlsafe_base64_encode
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from django.http import HttpResponse
+from django.core.mail import send_mail, BadHeaderError
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
@@ -82,6 +92,26 @@ def bookingSubmit(request):
                             
                             
                             messages.success(request, "Appointment Saved!")
+                            subject = "Password Reset Requested"
+                            email_template_name = "Appointment_sent.txt"
+                            c = {
+                            "email":user.email,
+                            'domain':'127.0.0.1:8000',
+                            'site_name': 'Website',
+                            "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                            "user": user,
+                            "service":service,
+                            "day":day,
+                            "time":time,
+
+                            'token': default_token_generator.make_token(user),
+                            'protocol': 'http',
+                            }
+                            email = render_to_string(email_template_name, c)
+                            try:
+                                send_mail(subject, email, 'admin@example.com' , [user.email], fail_silently=False)
+                            except BadHeaderError:
+                                return HttpResponse('Invalid header found.')
                             return redirect('/')
                         else:
                             messages.success(request, "The Selected Time Has Been Reserved Before!")
