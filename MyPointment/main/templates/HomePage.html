@@ -32,11 +32,18 @@
     <div class="c1">
     
         <h1>Hospital Management System</h1>
-    
+       {%if user.is_authenticated and user.username != Cardiologist and user.username != 'Oncologist' and user.username != 'Psychiatrist' and user.username != 'Neurologist' and not request.user.is_superuser%}
         <p class="emrg">Emergency?</p>
     
     
         <a type="button" class="btn btn-primary shadow  mt-5" href="{% url 'booking' %}">Online Booking</a>
+       {%elif  not request.user.is_superuser%}
+             <a type="button" class="btn btn-primary shadow  mt-5" href="{% url 'CardiologistApp' %}">Appointments For {{user}}</a>
+        {%endif%}
+        {%if request.user.is_superuser%}
+        <p>Welcome Admin {{user}}</p>
+        <a type="button" class="btn btn-primary shadow  mt-5" href="{% url 'ViewAvg' %}">DoctorsAvgs</a>
+        {%endif%}
 
     </div>
 </body>

@@ -1,0 +1,11 @@
+{% autoescape off %}
+Hello,
+
+Your Appointment Has Been Saved!
+{% autoescape on %}
+ {{data}}
+ {% endautoescape %}
+Sincerely,
+Team 7, MyPointment.
+
+{% endautoescape %}
