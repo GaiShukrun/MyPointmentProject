@@ -283,6 +283,7 @@ def checkEditTime(times, day, id):
         if Appointment.objects.filter(day=day, time=k).count() < 1 or time == k:
             x.append(k)
     return x
+    
 def DeleteApp1(request,id):
     appointment = Appointment.objects.get(id=id)
     appointment.delete()
