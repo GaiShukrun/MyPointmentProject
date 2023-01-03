@@ -37,6 +37,7 @@ class AppointmentTestCase(TestCase):
     john = Appointment.objects.get(syptoms = "Back pain")
     self.assertEqual(john.syptoms,"Back pain")
     
+
   def test_appointment_delete(self):
     # Create a test appointment
     appointment = Appointment.objects.create(id=150)
@@ -48,6 +49,7 @@ class AppointmentTestCase(TestCase):
 
     # Checks if appointment with id 150 is deleted and is None
     self.assertEqual(appointment.id,None)
+
 
 
   def test_appointment_change_service(self):
@@ -62,3 +64,21 @@ class AppointmentTestCase(TestCase):
     # Checks if appointment.service really changed
     self.assertNotEqual(app.service,"Cardiologist")
     self.assertEqual(app.service,"Oncologist")
+
+
+
+  def test_appointment_timetaken(self):
+    # Get a test appointment from setUp()
+    app = Appointment.objects.get(service="Cardiologist")
+
+    # Checks if app.Apperence == False because its the default
+    self.assertFalse(app.Apperence)
+
+    # Updating the app.timetake because the patient showed up
+    app.timetaken = 20
+    app.Apperence = True
+
+    # Checks if app.Apperence and app.timetaken really changed in database
+    self.assertTrue(app.Apperence)
+    self.assertEqual(app.timetaken, 20)
+
