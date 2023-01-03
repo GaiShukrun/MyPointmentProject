@@ -97,17 +97,8 @@ def password_reset_request(request):
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name='password_reset.html', context={"password_reset_form":password_reset_form})
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 # def profile(response):
 #     return render(response , 'UserProfile.html',{})
-=======
-def profile(response):
-    return render(response , 'UserProfile.html',{})
-=======
-# def profile(response):
-#     return render(response , 'UserProfile.html',{})
->>>>>>> 0447bf6b1ddd4839961523bad1e6eea2f88b2f35
 
 def avg_Doctors(request):
     mydata = Appointment.objects.all()
@@ -182,7 +173,3 @@ def avg_Doctors(request):
     }
 
     return render(request,"ViewAvg.html",context)
-<<<<<<< HEAD
->>>>>>> 7e8f99f42a2687c5a1487553c9cfd918c516c376
-=======
->>>>>>> 0447bf6b1ddd4839961523bad1e6eea2f88b2f35
