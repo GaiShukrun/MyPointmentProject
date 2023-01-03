@@ -11,9 +11,34 @@ class SigninTest(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(username='test', password='12test12', email='test@example.com')
         self.user.save()
+        self.user = get_user_model().objects.create_user(username='Oncologist', password='12test12', email='test@example.com')
+        self.user.save()
+        self.user = get_user_model().objects.create_user(username='Cardiologist', password='12test12', email='test@example.com')
+        self.user.save()
+        self.user = get_user_model().objects.create_user(username='Psychiatrist', password='12test12', email='test@example.com')
+        self.user.save()
+        self.user = get_user_model().objects.create_user(username='Neurologist', password='12test12', email='test@example.com')
+        self.user.save()
+
 
     def test_correct(self):
         user = authenticate(username='test', password='12test12')
+        self.assertTrue((user is not None) and user.is_authenticated)
+
+    def test_is_Oncologist(self):
+        user = authenticate(username='Oncologist', password='12test12')
+        self.assertTrue((user is not None) and user.is_authenticated)
+
+    def test_is_Cardiologist(self):
+        user = authenticate(username='Cardiologist', password='12test12')
+        self.assertTrue((user is not None) and user.is_authenticated)
+        
+    def test_is_Psychiatrist(self):
+        user = authenticate(username='Psychiatrist', password='12test12')
+        self.assertTrue((user is not None) and user.is_authenticated)
+
+    def test_is_Neurologist(self):
+        user = authenticate(username='Neurologist', password='12test12')
         self.assertTrue((user is not None) and user.is_authenticated)
 
     def test_wrong_username(self):
@@ -23,6 +48,7 @@ class SigninTest(TestCase):
     def test_wrong_pssword(self):
         user = authenticate(username='test', password='wrong')
         self.assertFalse(user is not None and user.is_authenticated)
+    
     def tearDown(self):
         self.user.delete()
 
