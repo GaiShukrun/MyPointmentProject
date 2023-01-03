@@ -37,7 +37,14 @@ class AppointmentTestCase(TestCase):
     john = Appointment.objects.get(syptoms = "Back pain")
     self.assertEqual(john.syptoms,"Back pain")
     
+  def test_appointment_delete(self):
+    # Create a test appointment
+    appointment = Appointment.objects.create(id=150)
+    
+    # Checks if appointment.id == 150
+    self.assertEqual(appointment.id,150)
 
+    appointment.delete()
 
-
-  
+    # Checks if appointment with id 150 is deleted and is None
+    self.assertEqual(appointment.id,None)
