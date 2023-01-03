@@ -13,7 +13,8 @@
 <div class="shadow p-4 mb-5 bg-body bg-body rounded text-black text-center m-5">
     <form method="post" action="{% url 'bookingSubmit' %}" class="me-2 ms-2" required>
         {% csrf_token %}
-        <br>
+
+        <h5 class="text-center fPersian mt-4">Write your symptoms here:</h5>
           <textarea id="freeform" name="freeform" rows="4" cols="50">
             </textarea><br><br>
         <!--input time-->
