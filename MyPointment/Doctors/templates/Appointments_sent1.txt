@@ -1,7 +1,7 @@
 {% autoescape off %}
 Hello,
 
-Your Appointment Has Been Saved!
+Your Appointments {{user}}
 {% autoescape on %}
  {{data}}
  {% endautoescape %}

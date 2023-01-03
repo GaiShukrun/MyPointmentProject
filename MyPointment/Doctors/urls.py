@@ -8,6 +8,6 @@ urlpatterns = [
     path('CardiologistApp/pdf/',views.generatePDF),
     path('DeleteApp/<int:id>',views.DeleteApp,name = "DeleteApp"),
     path('UpdateTime/<int:id>',views.UpdateTime,name ="UpdateTime"),
-   
+    path('CardiologistApp/Send_Email/',views.Send_Email,name="Send_Email"),
 
 ]
