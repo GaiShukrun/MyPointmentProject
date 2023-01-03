@@ -15,6 +15,8 @@
       }
       
       table {
+        margin-top: 38px;
+        margin-bottom: 38px;
         border-collapse: collapse;
         border: 2px solid rgb(200,200,200);
         letter-spacing: 1px;
@@ -45,6 +47,7 @@
       caption {
         padding: 10px;
       }
+
     </style>
   </head>
   <body>
@@ -76,10 +79,9 @@
           <input type="text" name="username">
           <input type="submit" name="submit"></form></td>
         {% endif %}
-        
-        
+      </tr>
+
         {% if ser.service == 'Oncologist' and name == 'Oncologist'  %}
-        
       <tr>
         <td>{{ser.user}}</td>
         <td>{{ser.day}}</td>
@@ -92,8 +94,8 @@
           <input type="submit" name="submit"></form></td>
         {% endif %}
       </tr>
+
         {% if ser.service == 'Psychiatrist' and name == 'Psychiatrist'  %}
-        
       <tr>
         <td>{{ser.user}}</td>
         <td>{{ser.day}}</td>
@@ -106,8 +108,8 @@
           <input type="submit" name="submit"></form></td>
         {% endif %}
       </tr>
+
         {% if ser.service == 'Neurologist' and name == 'Neurologist'  %}
-        
       <tr>
         <td>{{ser.user}}</td>
         <td>{{ser.day}}</td>
@@ -121,7 +123,8 @@
         {% endif %}
         
       </tr>
-        {% endfor %}
+
+      {% endfor %}
     </table>
     
     <a class="btn btn-success" href="pdf/">ConvertToPDF</a>
@@ -133,6 +136,5 @@
 
   </body>
 </html>
-
 
 {% endblock %}

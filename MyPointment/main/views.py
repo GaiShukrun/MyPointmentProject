@@ -28,8 +28,7 @@ def login_user(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
-                
-                if username == 'Cardiologist' or username == 'Oncologist' or username == 'Psychiatrist' or username == 'Neurologist'  :
+                if (username == "Cardiologist" or username == "Oncologist" or username == "Psychiatrist" or username == "Neurologist"):
                     login(request,user)
                     return redirect("CardiologistApp")
                 login(request, user)
@@ -67,8 +66,8 @@ def logout_user(request):
     logout(request)
     return redirect('home')
 
-def BhiratTor(response):
-    return render(response , 'BhiratTor.html',{})
+# def BhiratTor(response):
+#     return render(response , 'BhiratTor.html',{})
 
 def password_reset_request(request):
     if request.method == "POST":
@@ -98,8 +97,8 @@ def password_reset_request(request):
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name='password_reset.html', context={"password_reset_form":password_reset_form})
 
-def profile(response):
-    return render(response , 'UserProfile.html',{})
+# def profile(response):
+#     return render(response , 'UserProfile.html',{})
 
 def avg_Doctors(request):
     mydata = Appointment.objects.all()
@@ -113,7 +112,8 @@ def avg_Doctors(request):
         count1+=1
         if obj.Apperence == True :
             count2+=1
-            avg += int(obj.timetaken)
+            if obj.timetaken != None:
+                avg += int(obj.timetaken)
         if  obj.service == 'Cardiologist' :
             countCar+=1
             if obj.Apperence == True :
