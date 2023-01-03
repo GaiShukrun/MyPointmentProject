@@ -13,6 +13,7 @@ from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from booking.models import Appointment
 
 # def Base(response):
 #     return render(response , 'Base.html',{})
@@ -29,7 +30,7 @@ def login_user(request):
             if user is not None:
                 if (username == "Cardiologist" or username == "Oncologist" or username == "Psychiatrist" or username == "Neurologist"):
                     login(request,user)
-                    return redirect("DoctorApp")
+                    return redirect("CardiologistApp")
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.")
                 return redirect("home")
@@ -65,8 +66,8 @@ def logout_user(request):
     logout(request)
     return redirect('home')
 
-def BhiratTor(response):
-    return render(response , 'BhiratTor.html',{})
+# def BhiratTor(response):
+#     return render(response , 'BhiratTor.html',{})
 
 def password_reset_request(request):
     if request.method == "POST":
@@ -98,3 +99,77 @@ def password_reset_request(request):
 
 # def profile(response):
 #     return render(response , 'UserProfile.html',{})
+
+def avg_Doctors(request):
+    mydata = Appointment.objects.all()
+    count1,count2,avg = 0,0,0
+    countCar,countCar2,avgCar = 0,0,0
+    countOnco,countOnco2,avgOnco =0,0,0
+    countPsy,countPsy2,avgPsy =0,0,0
+    countNeu,countNeu2,avgNeu = 0,0,0
+    
+    for obj in mydata:
+        count1+=1
+        if obj.Apperence == True :
+            count2+=1
+            if obj.timetaken != None:
+                avg += int(obj.timetaken)
+        if  obj.service == 'Cardiologist' :
+            countCar+=1
+            if obj.Apperence == True :
+                countCar2+=1
+                if obj.timetaken != None:
+                    avgCar += int(obj.timetaken)
+                
+        if  obj.service == 'Oncologist' :
+            countOnco+=1
+            if obj.Apperence == True  :
+                countOnco2+=1
+                if obj.timetaken != None:
+                    avgOnco += int(obj.timetaken)
+        if  obj.service == 'Psychiatrist' :
+            countPsy+=1
+            if obj.Apperence == True  :
+               countPsy2+=1
+               if obj.timetaken != None:
+                  avgPsy += int(obj.timetaken)
+        if  obj.service == 'Neurologist' :
+            countNeu+=1
+            if obj.Apperence == True  :
+                countNeu2+=1
+                if obj.timetaken != None:
+                    avgNeu += int(obj.timetaken)
+    if count2!=0 :
+        # and countCar2!=0 and countPsy!= 0 and countNeu2!=0:
+        avg = avg/count2
+    else:
+        avg = 0
+    if countCar2!=0:
+        avgCar = avgCar/countCar2
+    else:
+        avgCar = 0
+    if countOnco2!= 0:
+        avgOnco = avgOnco/countOnco2
+    else:
+        avgOnco = 0
+    if countPsy2!= 0:
+        avgPsy = avgPsy/countPsy2
+    else:
+        avgPsy = 0
+    if countNeu2 != 0:
+        avgNeu = avgNeu/countNeu2
+    else:
+        avgNeu = 0
+    allavg = (avg,avgCar,avgOnco,avgPsy,avgNeu)
+    allnumapp = (count1,countCar,countOnco,countPsy,countNeu)
+    allnumArrivedapp = (count2,countCar2,countOnco2,countPsy2,countNeu2)
+
+
+    context = {
+        "avg":allavg,
+        "NumberOfAppointment":allnumapp,
+        "NumberofAppointmentArrived":allnumArrivedapp,
+        "App":mydata,
+    }
+
+    return render(request,"ViewAvg.html",context)
