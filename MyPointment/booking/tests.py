@@ -48,3 +48,17 @@ class AppointmentTestCase(TestCase):
 
     # Checks if appointment with id 150 is deleted and is None
     self.assertEqual(appointment.id,None)
+
+
+  def test_appointment_change_service(self):
+    # Get a test appointment from setUp()
+    app = Appointment.objects.get(service="Cardiologist")  
+
+    # Checks if app.service == "Cardiologist"
+    self.assertEqual(app.service,"Cardiologist")
+
+    app.service = "Oncologist"
+
+    # Checks if appointment.service really changed
+    self.assertNotEqual(app.service,"Cardiologist")
+    self.assertEqual(app.service,"Oncologist")
