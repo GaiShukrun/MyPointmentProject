@@ -11,6 +11,11 @@ urlpatterns = [
     path('BhiratTor/',views.BhiratTor,name="BhiratTor"),
     path('logout/',views.logout_user,name="logout"),
     path('password_reset/', views.password_reset_request, name="password_reset"),
+<<<<<<< HEAD
     # path('UserProfile/', views.profile, name='profile'),
     
+=======
+    path('UserProfile/', views.profile, name='profile'),
+    path('ViewAvg/',views.avg_Doctors,name = "ViewAvg"), 
+>>>>>>> 7e8f99f42a2687c5a1487553c9cfd918c516c376
 ]

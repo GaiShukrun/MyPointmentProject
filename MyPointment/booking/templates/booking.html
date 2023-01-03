@@ -9,11 +9,13 @@
 </style>
 {% load crispy_forms_tags %}
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated and user.username != Cardiologist and user.username != 'Oncologist' and user.username != 'Psychiatrist' and user.username != 'Neurologist' %}
+
 <h1 class="text-center mt-3">Online Booking</h1>
 
 <div class="text-center shadow p-4 mb-5 bg-body bg-body rounded text-black m-5">
     <form method="post" action="{% url 'booking' %}" class="me-2 ms-2" required>
+        
         {% csrf_token %}
 
         <!--input service-->

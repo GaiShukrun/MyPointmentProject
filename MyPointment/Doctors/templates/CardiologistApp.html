@@ -56,8 +56,10 @@
         <td>Name</td>
         <td>Day</td>
         <td>Time</td>
-        <td>syptoms</td>
+        <td>Syptoms</td>
         <td>DeleteAppointment</td>
+        <td>Arrived?</td>
+        <td>TimeTaken</td>
        
       </tr>
       {% for ser in App%}
@@ -68,7 +70,14 @@
         <td>{{ser.day}}</td>
         <td>{{ser.time}}</td>
         <td>{{ser.syptoms}}</td>
+        <td><a class="btn btn-primary" href="{% url 'DeleteApp' ser.id %}">Delete</a></td>
+        <td>If Not Arrived Enter 0 In TimeTaken</td>
+        <td> <form method="POST" action="{% url 'UpdateTime' ser.id %}">{% csrf_token %}
+          <input type="text" name="username">
+          <input type="submit" name="submit"></form></td>
         {% endif %}
+        
+        
         {% if ser.service == 'Oncologist' and name == 'Oncologist'  %}
         
       <tr>
@@ -76,6 +85,11 @@
         <td>{{ser.day}}</td>
         <td>{{ser.time}}</td>
         <td>{{ser.syptoms}}</td>
+        <td><a class="btn btn-primary" href="{% url 'DeleteApp' ser.id %}">Delete</a></td>
+        <td>If Not Arrived Enter 0 In TimeTaken</td>
+        <td> <form method="POST" action="{% url 'UpdateTime' ser.id %}">{% csrf_token %}
+          <input type="text" name="username">
+          <input type="submit" name="submit"></form></td>
         {% endif %}
       </tr>
         {% if ser.service == 'Psychiatrist' and name == 'Psychiatrist'  %}
@@ -85,6 +99,11 @@
         <td>{{ser.day}}</td>
         <td>{{ser.time}}</td>
         <td>{{ser.syptoms}}</td>
+        <td><a class="btn btn-primary" href="{% url 'DeleteApp' ser.id %}">Delete</a></td>
+        <td>If Not Arrived Enter 0 In TimeTaken</td>
+        <td> <form method="POST" action="{% url 'UpdateTime' ser.id %}">{% csrf_token %}
+          <input type="text" name="username">
+          <input type="submit" name="submit"></form></td>
         {% endif %}
       </tr>
         {% if ser.service == 'Neurologist' and name == 'Neurologist'  %}
@@ -94,12 +113,22 @@
         <td>{{ser.day}}</td>
         <td>{{ser.time}}</td>
         <td>{{ser.syptoms}}</td>
+        <td><a class="btn btn-primary" href="{% url 'DeleteApp' ser.id %}">Delete</a></td>
+        <td>If Not Arrived Enter 0 In TimeTaken</td>
+        <td> <form method="POST" action="{% url 'UpdateTime' ser.id %}">{% csrf_token %}
+          <input type="text" name="username">
+          <input type="submit" name="submit"></form></td>
         {% endif %}
+        
       </tr>
         {% endfor %}
     </table>
     
     <a class="btn btn-success" href="pdf/">ConvertToPDF</a>
+    <a class="btn btn-success" href="/CardiologistApp">SendEmail</a>
+
+    
+    
     
 
   </body>
