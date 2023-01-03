@@ -27,6 +27,7 @@ from .forms import ExampleForm
 
 
 
+
 def DeleteApp(request,id):
     # Appointment.objects.filter(id=id).delete()
     # mydata = Appointment.objects.all()
