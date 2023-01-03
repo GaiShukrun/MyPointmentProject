@@ -23,6 +23,7 @@ class SigninTest(TestCase):
     def test_wrong_pssword(self):
         user = authenticate(username='test', password='wrong')
         self.assertFalse(user is not None and user.is_authenticated)
+        
     def tearDown(self):
         self.user.delete()
 
@@ -32,6 +33,8 @@ class LoginTest(TestCase):
             'username': 'testuser',
             'password': 'secret'}
         User.objects.create_user(**self.credentials)
+
+
     def test_login(self):
         # send login data
         response = self.client.post('/login/', self.credentials, follow=True)
