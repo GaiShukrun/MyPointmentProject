@@ -32,15 +32,21 @@
     <div class="c1">
     
         <h1>Hospital Management System</h1>
-       {%if user.is_authenticated and user.username != Cardiologist and user.username != 'Oncologist' and user.username != 'Psychiatrist' and user.username != 'Neurologist' and not request.user.is_superuser%}
+       {%if user.is_authenticated and user.username != Cardiologist and user.username != 'Oncologist' and user.username != 'Psychiatrist' and user.username != 'Neurologist' and not request.user.is_superuser and user.is_authenticated%}
         <p class="emrg">Emergency?</p>
     
     
         <a type="button" class="btn btn-primary shadow  mt-5" href="{% url 'booking' %}">Online Booking</a>
-       {%elif  not request.user.is_superuser%}
+       {%elif  not request.user.is_superuser and user.is_authenticated %}
              <a type="button" class="btn btn-primary shadow  mt-5" href="{% url 'CardiologistApp' %}">Appointments For {{user}}</a>
         {%endif%}
-        {%if request.user.is_superuser%}
+        {%if not user.is_authenticated%}
+        <a type="button" class="btn btn-primary shadow  mt-5" href="{% url 'login' %}">Login</a>
+        <p>Or signUp</p>
+        <a type="button" class="btn btn-primary shadow  mt-5" href="{% url 'register' %}">SignUp</a>
+        {%endif%}
+        
+        {%if request.user.is_superuser and user.is_authenticated%}
         <p>Welcome Admin {{user}}</p>
         <a type="button" class="btn btn-primary shadow  mt-5" href="{% url 'ViewAvg' %}">DoctorsAvgs</a>
         {%endif%}

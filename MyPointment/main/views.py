@@ -28,8 +28,7 @@ def login_user(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
-                
-                if username == 'Cardiologist' or username == 'Oncologist' or username == 'Psychiatrist' or username == 'Neurologist'  :
+                if (username == "Cardiologist" or username == "Oncologist" or username == "Psychiatrist" or username == "Neurologist"):
                     login(request,user)
                     return redirect("CardiologistApp")
                 login(request, user)
@@ -67,8 +66,8 @@ def logout_user(request):
     logout(request)
     return redirect('home')
 
-def BhiratTor(response):
-    return render(response , 'BhiratTor.html',{})
+# def BhiratTor(response):
+#     return render(response , 'BhiratTor.html',{})
 
 def password_reset_request(request):
     if request.method == "POST":
@@ -99,11 +98,16 @@ def password_reset_request(request):
     return render(request=request, template_name='password_reset.html', context={"password_reset_form":password_reset_form})
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # def profile(response):
 #     return render(response , 'UserProfile.html',{})
 =======
 def profile(response):
     return render(response , 'UserProfile.html',{})
+=======
+# def profile(response):
+#     return render(response , 'UserProfile.html',{})
+>>>>>>> 0447bf6b1ddd4839961523bad1e6eea2f88b2f35
 
 def avg_Doctors(request):
     mydata = Appointment.objects.all()
@@ -117,7 +121,8 @@ def avg_Doctors(request):
         count1+=1
         if obj.Apperence == True :
             count2+=1
-            avg += int(obj.timetaken)
+            if obj.timetaken != None:
+                avg += int(obj.timetaken)
         if  obj.service == 'Cardiologist' :
             countCar+=1
             if obj.Apperence == True :
@@ -177,4 +182,7 @@ def avg_Doctors(request):
     }
 
     return render(request,"ViewAvg.html",context)
+<<<<<<< HEAD
 >>>>>>> 7e8f99f42a2687c5a1487553c9cfd918c516c376
+=======
+>>>>>>> 0447bf6b1ddd4839961523bad1e6eea2f88b2f35

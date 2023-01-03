@@ -11,6 +11,8 @@ from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse , HttpResponseRedirect
+from django.urls import reverse
 
 
 # Create your views here.
@@ -282,3 +284,7 @@ def checkEditTime(times, day, id):
             x.append(k)
     return x
     
+def DeleteApp1(request,id):
+    appointment = Appointment.objects.get(id=id)
+    appointment.delete()
+    return HttpResponseRedirect(reverse('userPanel'))

@@ -25,22 +25,16 @@ from django.urls import reverse
 from django.db.models import F
 from .forms import ExampleForm
 
+# Create your views here.
 
 
 def DeleteApp(request,id):
-    # Appointment.objects.filter(id=id).delete()
-    # mydata = Appointment.objects.all()
-    # user1 = request.user.username            
-    # return render(request,"CardiologistApp.html",{'App' : mydata,'name':user1} )
    
     appointment = Appointment.objects.get(id=id)
     appointment.delete()
-    # template = loader.get_template('CardiologistApp.html')     
-    # context = {
-    #     'tmp' : id
-    # }  
+    
     return HttpResponseRedirect(reverse('CardiologistApp'))
-    # return HttpResponseRedirect(reverse('CardiologistApp'))
+   
    
 def view_Appointment(request):
     pass    
@@ -63,8 +57,9 @@ def Send_Email(request):
    
     user = request.user
     subject = "Password Reset Requested"
-    email_template_name = "Appointments_sent.txt"
+    email_template_name = "Appointments_sent1.txt"
     mydata = Appointment.objects.all()
+    mydata = mydata.order_by('day', 'time')
     user1 = request.user.username
     tmp =''
 
@@ -80,7 +75,6 @@ def Send_Email(request):
             
         if i.service == 'Neurologist' and user1 == 'Neurologist'  :
             tmp += str(i)+'\n'
-            
     c = {
     "email":user.email,
     'domain':'127.0.0.1:8000',
@@ -96,8 +90,10 @@ def Send_Email(request):
         send_mail(subject, email, 'admin@example.com' , [user.email], fail_silently=False)
     except BadHeaderError:
         return HttpResponse('Invalid header found.')
-    return HttpResponse('/CardiologistApp')
-    
+    #return render(request,"CardiologistApp.html",)
+    return HttpResponseRedirect(reverse('CardiologistApp'))
+    #return redirect('/CardiologistApp')
+    # return render(request,"DoctorApp.html",{'App' : mydata,'name':user1} )
    
 def ViewAppointment(request):
     form = ExampleForm()

@@ -47,7 +47,7 @@
     <div class="collapse navbar-collapse justify-content-between" id="navbar">
       <div class="navbar-nav">
         <a class="nav-item nav-link" id="home" href="/">Home</a>
-        {% if user.username != Cardiologist and user.username != 'Oncologist' and user.username != 'Psychiatrist' and user.username != 'Neurologist' and not request.user.is_superuser %}
+        {% if user.username != Cardiologist and user.username != 'Oncologist' and user.username != 'Psychiatrist' and user.username != 'Neurologist' and not request.user.is_superuser and user.is_authenticated %}
         <a class="nav-item nav-link" href={%url 'booking'%}>Booking</a>
         {% endif%}
         
@@ -64,12 +64,16 @@
         {% if user.is_authenticated %}
         <a class="nav-item nav-link" id="logout" href={%url 'logout'%}>Logout</a>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <a class="nav-item nav-link" id="logout" href="{% url 'userPanel'%}"> {{user.username}}</a>
 =======
         <a class="nav-item nav-link" id="logout" href="UserProfile"> {{user.username}}</a>
         
         
 >>>>>>> 7e8f99f42a2687c5a1487553c9cfd918c516c376
+=======
+        <a class="nav-item nav-link" id="logout" href="{% url 'userPanel'%}"> {{user.username}}</a>
+>>>>>>> 0447bf6b1ddd4839961523bad1e6eea2f88b2f35
 
         {% else %}
         <a class="nav-item nav-link" id="login" href="{% url 'login'%}">Login</a>
