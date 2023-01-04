@@ -1,6 +1,7 @@
 from . import models, views, admin, forms
 from django.test import TestCase, tag, Client
 from django.urls import reverse
+from django.core import mail
 from django.http import HttpRequest, HttpResponse,response,request
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,get_user_model,get_user,user_logged_in
@@ -23,7 +24,7 @@ class SigninTest(TestCase):
     def test_wrong_pssword(self):
         user = authenticate(username='test', password='wrong')
         self.assertFalse(user is not None and user.is_authenticated)
-        
+
     def tearDown(self):
         self.user.delete()
 
@@ -40,20 +41,12 @@ class LoginTest(TestCase):
         response = self.client.post('/login/', self.credentials, follow=True)
         # should be logged in now
         self.assertTrue(response.context['user'].is_active)
-# class ChangePassTest(TestCase):
-#     def setUp(self):
-#         self.credentials = {
-#             'username': 'testuser',
-#             'password': 'secret'}
-#         User.objects.create_user(**self.credentials)
-#     def test_Changeinfo_password(self):
-#         user = User.objects.create_user(**self.credentials)
-#         us= user.password
-#         us.set_password('pass')
-#         self.assertNotEqual(us.password, 'testuser')
-
-    
 
 
 
-        
+# class PasswordChangeTestCase(TestCase):
+#    def test_password_change(self):
+#        user = User.objects.create_user(username='testuser', password='oldpassword')
+#        response = self.client.get('password_reset__complete.html', {'old_password': 'oldpassword', 'new_password1': 'newpassword', 'new_password2': 'newpassword'})
+#        self.assertEqual(response.status_code, 200)
+#        self.assertNotEqual(user.password, {'old_password'})     

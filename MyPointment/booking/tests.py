@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,get_user_model,get_user,user_logged_in
 from .models import Appointment
 import datetime, unittest
+from django.core import mail
+from .import views
 
 
 # The test john = Appointment.objects.get(<field>) for ex:
@@ -54,9 +56,6 @@ class AppointmentTestCase(TestCase):
 
 
   def test_appointment_syptoms(self):
-    # john = Appointment.objects.get(syptoms = "Leg pain")
-    # This will give error because booking.models.Appointment.DoesNotExist: Appointment matching query does not exist.
-    # so:
     john = Appointment.objects.get(syptoms = "Back pain")
     Ron = Appointment.objects.get(syptoms = "pain")
     Din = Appointment.objects.get(syptoms = "crazy crazy")
@@ -65,3 +64,17 @@ class AppointmentTestCase(TestCase):
     self.assertNotEqual(Ron.syptoms,"leg pain")
     self.assertEqual(Din.syptoms,"crazy crazy")
     self.assertEqual(Tal.syptoms,"migrane")
+
+class emailSent(TestCase):
+  def setUp(self):
+    self.user = get_user_model().objects.create_user(username='test', password='12test12', email='test@example.com')
+    self.user.save()
+
+
+  def test_email(self):
+    subject = "test"
+    email = "admin@example.com"
+    test = mail.send_mail(subject, email, 'admin@example.com' , [User.email], fail_silently=False)
+    self.assertEqual(len(mail.outbox),1)
+    self.assertEqual(mail.outbox[0].subject, "test")
+    self.assertEqual(mail.outbox[0].to, [User.email])
