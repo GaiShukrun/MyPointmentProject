@@ -36,7 +36,30 @@ class AppointmentTestCase(TestCase):
     # so:
     john = Appointment.objects.get(syptoms = "Back pain")
     self.assertEqual(john.syptoms,"Back pain")
-    
+
+
+  def test_user_panel(self):
+      # Create a test user
+      user = User.objects.create_user(username='testuser', password='testpass')
+      # Log the user in
+      self.client.login(username='testuser', password='testpass')
+       # Create an appointment for the test user
+      appointment = Appointment.objects.create(user=user, day='2022-01-01', time='09:00', service='Cardiologist')
+      # Get the URL for the userPanel view
+      url = reverse('userPanel')
+    # Send a GET request to the userPanel view
+      response = self.client.get(url)
+    # Assert that the response status code is 200 (OK)
+      self.assertEqual(response.status_code, 200)
+    # Assert that the response status code is not 404 (Not Found)
+      self.assertNotEqual(response.status_code, 404)
+    # Assert that the user and appointments variables are passed to the template
+      self.assertIn('user', response.context)
+      self.assertIn('appointments', response.context)
+    # Assert that the correct user and appointments are passed to the template
+      self.assertEqual(response.context['user'], user)
+      
+
 
 
 

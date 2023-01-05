@@ -36,8 +36,7 @@ def DeleteApp(request,id):
     return HttpResponseRedirect(reverse('CardiologistApp'))
    
    
-def view_Appointment(request):
-    pass    
+   
 def UpdateTime(request,id):
     if request.method == "POST":
         timetaken = request.POST.get('username')
