@@ -4,6 +4,9 @@ from django.urls import reverse
 from django.http import HttpRequest, HttpResponse,response,request
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,get_user_model,get_user,user_logged_in
+from django.test import TestCase
+from django.urls import reverse
+from django.core import mail
 
 # Create your tests here.
 
@@ -37,17 +40,22 @@ class LoginTest(TestCase):
         response = self.client.post('/login/', self.credentials, follow=True)
         # should be logged in now
         self.assertTrue(response.context['user'].is_active)
-# class ChangePassTest(TestCase):
-#     def setUp(self):
-#         self.credentials = {
-#             'username': 'testuser',
-#             'password': 'secret'}
-#         User.objects.create_user(**self.credentials)
-#     def test_Changeinfo_password(self):
-#         user = User.objects.create_user(**self.credentials)
-#         us= user.password
-#         us.set_password('pass')
-#         self.assertNotEqual(us.password, 'testuser')
+class PasswordResetRequestViewTest(TestCase):
+    def test_password_reset_request(self):
+    # Create a test user
+        test_user = User.objects.create_user(username='testuser', password='testpass', email='test@example.com')
+
+        # Send a POST request to the view function with a valid email
+        response = self.client.post('/password_reset/', {'email': 'test@example.com'})
+
+        # Check that the response is a redirect to the "password reset done" page
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], '/password_reset/done/')
+
+        # Check that an email was sent to the test user
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ['test@example.com'])
+
 
     
 
