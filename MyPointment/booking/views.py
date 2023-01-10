@@ -231,18 +231,18 @@ def userUpdateSubmit(request, id):
         'id': id,
     })
 
-def staffPanel(request):
-    tomorrow = datetime.now() + timedelta(1)
-    minDate = tomorrow.strftime('%Y-%m-%d')
-    deltatime = tomorrow + timedelta(days=21)
-    strdeltatime = deltatime.strftime('%Y-%m-%d')
-    maxDate = strdeltatime
-    #Only show the Appointments 21 days from tomorrow
-    items = Appointment.objects.filter(day__range=[minDate, maxDate]).order_by('day', 'time')
+# def staffPanel(request):
+#     tomorrow = datetime.now() + timedelta(1)
+#     minDate = tomorrow.strftime('%Y-%m-%d')
+#     deltatime = tomorrow + timedelta(days=21)
+#     strdeltatime = deltatime.strftime('%Y-%m-%d')
+#     maxDate = strdeltatime
+#     #Only show the Appointments 21 days from tomorrow
+#     items = Appointment.objects.filter(day__range=[minDate, maxDate]).order_by('day', 'time')
 
-    return render(request, 'staffPanel.html', {
-        'items':items,
-    })
+#     return render(request, 'staffPanel.html', {
+#         'items':items,
+#     })
 
 def dayToWeekday(x):
     z = datetime.strptime(x, "%Y-%m-%d")

@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate,get_user_model,get_user,user_logged
 from django.test import TestCase
 from django.urls import reverse
 from django.core import mail
-
+from booking.models import Appointment
 # Create your tests here.
 
 class SigninTest(TestCase):
@@ -55,9 +55,46 @@ class PasswordResetRequestViewTest(TestCase):
         # Check that an email was sent to the test user
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].to, ['test@example.com'])
+class AvgTest(TestCase):
+    def test_view_avg(self):
+            # Create some test appointments
+            appointment_1 = Appointment.objects.create(service='Cardiologist', Apperence=True, timetaken=30)
+            appointment_2 = Appointment.objects.create(service='Oncologist', Apperence=False, timetaken=None)
+            appointment_3 = Appointment.objects.create(service='Psychiatrist', Apperence=True, timetaken=45)
+            appointment_4 = Appointment.objects.create(service='Neurologist', Apperence=True, timetaken=60)
+            appointment_5 = Appointment.objects.create(service='Neurologist', Apperence=False, timetaken=None)
+            
+            # Issue a GET request to the view function
+            response = self.client.get('/ViewAvg/')
+            
+            # Check that the response status code is 200 (OK)
+            self.assertEqual(response.status_code, 200)
+            
+            # Check that the correct average values are returned
+            #(<totalAvg>,<CardiologistAvg>,<OncologistAvg>,<PsychiatristAvg>,<NeurologistAvg>)
+            self.assertEqual(response.context['avg'], (45, 30, 0, 45, 60))
+            #(<totaNumAppointments>,<CardiologistNumAppointments>,<OncologistNumAppointments>,<PsychiatristNumAppointments>,<NeurologistNumAppointments>)
+            self.assertEqual(response.context['NumberOfAppointment'], (5, 1, 1, 1, 2))
+            #(<totalArrived>,<CardiologistArrived>,<OncologistArrived>,<PsychiatristArrived>,<NeurologistArrived>)
+            self.assertEqual(response.context['NumberofAppointmentArrived'], (3, 1, 0, 1, 1))
 
+class AdminSiteTests(TestCase):
+   
+    def setUp(self):
+        self.superuser = User.objects.create_superuser(username='testuser', password='testpass', email='test@example.com')
+        self.client.login(username='testuser', password='testpass')
 
-    
+        # create a regular user for testing
+        self.user = User.objects.create_user(username='testuser2', password='testpass2', email='test2@example.com',id=50)
+    def test_change_user_fields(self):
+        
+        
+
+        # send a request to the Django admin change form for the user
+        response = self.client.get(f'/admin/auth/user/{50}/change/')
+        self.assertEqual(response.status_code, 200)  # Check that the response is successful
+        
+
 
 
 

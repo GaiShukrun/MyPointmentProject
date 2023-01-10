@@ -88,6 +88,7 @@ def password_reset_request(request):
                     'token': default_token_generator.make_token(user),
                     'protocol': 'http',
                     }
+                    user.save()
                     email = render_to_string(email_template_name, c)
                     try:
                         send_mail(subject, email, 'admin@example.com' , [user.email], fail_silently=False)
@@ -141,6 +142,7 @@ def avg_Doctors(request):
                     avgNeu += int(obj.timetaken)
     if count2!=0 :
         # and countCar2!=0 and countPsy!= 0 and countNeu2!=0:
+    
         avg = avg/count2
     else:
         avg = 0
@@ -173,3 +175,6 @@ def avg_Doctors(request):
     }
 
     return render(request,"ViewAvg.html",context)
+
+
+

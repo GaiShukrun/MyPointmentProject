@@ -6,6 +6,7 @@ import datetime
 from fpdf import  FPDF
 from Doctors import views
 from django.http import HttpResponse,FileResponse
+from django.core import mail
 
 
 class TestForDoctorApp(TestCase):
@@ -63,7 +64,7 @@ class TestForDoctorApp(TestCase):
 
         # Create a test appointment for the test user
         appointment = Appointment.objects.create(user=user1, day='2022-01-01', time='09:00', service='Cardiologist', syptoms='chest pain', id=50)
-        self.assertFalse(appointment.Apperence)
+        
         # Send a POST request to the view function with a valid time taken
         response = self.client.post('/UpdateTime/50', {'username': '60'})
         self.assertEqual(response.status_code, 302)  # Check that the view function returns a redirect
@@ -72,4 +73,45 @@ class TestForDoctorApp(TestCase):
         # Check that the appointment was updated correctly in the database
         updated_appointment = Appointment.objects.get(id=50)
         self.assertEqual(updated_appointment.timetaken, '60')
+        
+        
+
+    def test_Apperence(self):
+        user1 = User.objects.create_user(username='testuser', password='testpass')
+        self.client.login(username='testuser', password='testpass')
+
+        # Create a test appointment for the test user
+        appointment = Appointment.objects.create(user=user1, day='2022-01-01', time='09:00', service='Cardiologist', syptoms='chest pain', id=50)
+       ## defualt value of Apperence is False
+        self.assertFalse(appointment.Apperence)
+        #updating the timetaken to 60, thus the apperence should be True
+        response = self.client.post('/UpdateTime/50', {'username': '60'})
+       
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/CardiologistApp/')
+        #getting the same Appointment with id=50
+        updated_appointment = Appointment.objects.get(id=50)
+        # True indeeed
         self.assertTrue(updated_appointment.Apperence)
+         #updating the timetaken to 0, thus the apperence should be False
+        response = self.client.post('/UpdateTime/50', {'username': '0'})
+        updated_appointment = Appointment.objects.get(id=50)
+        #False indeed.
+        self.assertFalse(updated_appointment.Apperence)
+    
+    
+    def test_send_email(self):
+    # Include a csrf_token in the data argument to send a POST request
+        user1 = User.objects.create_user(username='Cardiologist', password='testpass',email='test@example.com')
+        self.client.login(username='Cardiologist', password='testpass',email='test@example.com')
+        
+        response = self.client.post('/CardiologistApp/Send_Email/', {'email': 'test@example.com'})
+        self.assertEqual(response.status_code, 302)  # Check
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ['test@example.com'])
+        
+        
+        
+        
+        
+        

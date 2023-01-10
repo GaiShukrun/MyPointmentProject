@@ -88,5 +88,7 @@ class TestGeneratePDF(TestCase):
          for chunk in response.streaming_content:
             self.assertEqual(chunk, pdf_file.read(len(chunk)))
          self.assertEqual(pdf_file.read(), b'')
+# class TestSendEmailforbookingAppointment(TestCase):
+
 
   
