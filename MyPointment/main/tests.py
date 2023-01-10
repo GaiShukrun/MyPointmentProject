@@ -1,11 +1,12 @@
 from . import models, views, admin, forms
 from django.test import TestCase, tag, Client
 from django.urls import reverse
+from django.core import mail
 from django.http import HttpRequest, HttpResponse,response,request
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,get_user_model,get_user,user_logged_in
 
-# Create your tests here.
+#Create your tests here.
 
 class SigninTest(TestCase):
     def setUp(self):
@@ -52,12 +53,15 @@ class SigninTest(TestCase):
     def tearDown(self):
         self.user.delete()
 
+
 class LoginTest(TestCase):
     def setUp(self):
         self.credentials = {
             'username': 'testuser',
             'password': 'secret'}
         User.objects.create_user(**self.credentials)
+
+
     def test_login(self):
         # send login data
         response = self.client.post('/login/', self.credentials, follow=True)
@@ -79,5 +83,10 @@ class LoginTest(TestCase):
     
 
 
-
+        # create a regular user for testing
+        self.user = User.objects.create_user(username='testuser2', password='testpass2', email='test2@example.com',id=50)
+    def test_change_user_fields(self):
         
+        # send a request to the Django admin change form for the user
+        response = self.client.get(f'/admin/auth/user/{50}/change/')
+        self.assertEqual(response.status_code, 200)  # Checks that the response is successful
