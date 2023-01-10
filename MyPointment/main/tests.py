@@ -59,4 +59,4 @@ class AdminSiteTests(TestCase):
         
         # send a request to the Django admin change form for the user
         response = self.client.get(f'/admin/auth/user/{50}/change/')
-        self.assertEqual(response.status_code, 200)  # Check that the response is successful
+        self.assertEqual(response.status_code, 200)  # Checks that the response is successful
