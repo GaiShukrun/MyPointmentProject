@@ -63,6 +63,7 @@ class LoginTest(TestCase):
         response = self.client.post('/login/', self.credentials, follow=True)
         # should be logged in now
         self.assertTrue(response.context['user'].is_active)
+
 # class ChangePassTest(TestCase):
 #     def setUp(self):
 #         self.credentials = {
