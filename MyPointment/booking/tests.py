@@ -7,6 +7,7 @@ from .models import Appointment
 import datetime, unittest
 from django.core import mail
 from .import views
+from Doctors import views
 
 
 # The test john = Appointment.objects.get(<field>) for ex:
@@ -65,7 +66,7 @@ class AppointmentTestCase(TestCase):
     self.assertEqual(Din.syptoms,"crazy crazy")
     self.assertEqual(Tal.syptoms,"migrane")
 
-class emailSent(TestCase):
+class AppointmentEmailSent(TestCase):
   def setUp(self):
     self.user = get_user_model().objects.create_user(username='test', password='12test12', email='test@example.com')
     self.user.save()
@@ -74,7 +75,9 @@ class emailSent(TestCase):
   def test_email(self):
     subject = "test"
     email = "admin@example.com"
-    test = mail.send_mail(subject, email, 'admin@example.com' , [User.email], fail_silently=False)
+    mail.send_mail(subject, email, 'admin@example.com' , [User.email], fail_silently=False)
     self.assertEqual(len(mail.outbox),1)
     self.assertEqual(mail.outbox[0].subject, "test")
     self.assertEqual(mail.outbox[0].to, [User.email])
+
+
