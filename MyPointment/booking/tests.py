@@ -7,6 +7,8 @@ from .models import Appointment
 import datetime
 from django.http import HttpResponse,FileResponse
 from fpdf import  FPDF
+from django.core import mail
+
 
 
 # The test john = Appointment.objects.get(<field>) for ex:
@@ -65,19 +67,6 @@ class AppointmentTestCase(TestCase):
     self.assertEqual(Din.syptoms,"crazy crazy")
     self.assertEqual(Tal.syptoms,"migrane")
 
-class AppointmentEmailSent(TestCase):
-  def setUp(self):
-    self.user = get_user_model().objects.create_user(username='test', password='12test12', email='test@example.com')
-    self.user.save()
-
-
-  def test_email(self):
-    subject = "test"
-    email = "admin@example.com"
-    mail.send_mail(subject, email, 'admin@example.com' , [User.email], fail_silently=False)
-    self.assertEqual(len(mail.outbox),1)
-    self.assertEqual(mail.outbox[0].subject, "test")
-    self.assertEqual(mail.outbox[0].to, [User.email])
   def test_appointment_delete(self):
     # Create a test appointment
     appointment = Appointment.objects.create(id=150)
@@ -89,7 +78,6 @@ class AppointmentEmailSent(TestCase):
 
     # Checks if appointment with id 150 is deleted and is None
     self.assertEqual(appointment.id,None)
-
 
 
   def test_appointment_change_service(self):
@@ -104,6 +92,22 @@ class AppointmentEmailSent(TestCase):
     # Checks if appointment.service really changed
     self.assertNotEqual(app.service,"Cardiologist")
     self.assertEqual(app.service,"Oncologist")
+    
+
+class AppointmentEmailSent(TestCase):
+  def setUp(self):
+    self.user = get_user_model().objects.create_user(username='test', password='12test12', email='test@example.com')
+    self.user.save()
+
+
+  def test_email(self):
+    subject = "test"
+    email = "admin@example.com"
+    mail.send_mail(subject, email, 'admin@example.com' , [User.email], fail_silently=False)
+    self.assertEqual(len(mail.outbox),1)
+    self.assertEqual(mail.outbox[0].subject, "test")
+    self.assertEqual(mail.outbox[0].to, [User.email])
+
 
   def test_user_panel(self):
       # Create a test user
