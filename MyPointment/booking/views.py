@@ -134,11 +134,13 @@ def bookingSubmit(request):
     })
 
 def userPanel(request):
+    docs = ["Oncologist","Cardiologist","Psychiatrist","Neurologist"]
     user = request.user
     appointments = Appointment.objects.filter(user=user).order_by('day', 'time')
     return render(request, 'userPanel.html', {
         'user':user,
         'appointments':appointments,
+        'docs':docs
     })
 
 def userUpdate(request, id):

@@ -66,7 +66,7 @@
        
       </tr>
       {% for ser in App%}
-       {% if ser.service == 'Cardiologist' and name == 'Cardiologist'  %}
+       {% if ser.service == 'Cardiologist' and name == 'Cardiologist' and ser.timetaken == None%}
         
       <tr>
         <td>{{ser.user}}</td>
@@ -81,7 +81,7 @@
         {% endif %}
       </tr>
 
-        {% if ser.service == 'Oncologist' and name == 'Oncologist'  %}
+        {% if ser.service == 'Oncologist' and name == 'Oncologist' and ser.timetaken == None %}
       <tr>
         <td>{{ser.user}}</td>
         <td>{{ser.day}}</td>
@@ -95,7 +95,7 @@
         {% endif %}
       </tr>
 
-        {% if ser.service == 'Psychiatrist' and name == 'Psychiatrist'  %}
+        {% if ser.service == 'Psychiatrist' and name == 'Psychiatrist' and ser.timetaken == None%}
       <tr>
         <td>{{ser.user}}</td>
         <td>{{ser.day}}</td>
@@ -109,7 +109,7 @@
         {% endif %}
       </tr>
 
-        {% if ser.service == 'Neurologist' and name == 'Neurologist'  %}
+        {% if ser.service == 'Neurologist' and name == 'Neurologist' and ser.timetaken == None %}
       <tr>
         <td>{{ser.user}}</td>
         <td>{{ser.day}}</td>

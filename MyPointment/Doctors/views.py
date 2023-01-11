@@ -129,16 +129,16 @@ def generatePDF(request):
     tmp =''
 
     for i in mydata:
-        if i.service == 'Cardiologist' and user1 == 'Cardiologist'  :
+        if i.service == 'Cardiologist' and user1 == 'Cardiologist' and i.timetaken == None:
             tmp += str(i)
             pdf.cell(200, 8, f"{i}", 0, 1)
-        if i.service == 'Oncologist' and user1 == 'Oncologist'  :
+        if i.service == 'Oncologist' and user1 == 'Oncologist' and i.timetaken == None:
             tmp += str(i)
             pdf.cell(200, 8, f"{i}", 0, 1)
-        if i.service == 'Psychiatrist' and user1 == 'Psychiatrist'  :
+        if i.service == 'Psychiatrist' and user1 == 'Psychiatrist' and i.timetaken == None:
             tmp += str(i)
             pdf.cell(200, 8, f"{i}", 0, 1)
-        if i.service == 'Neurologist' and user1 == 'Neurologist'  :
+        if i.service == 'Neurologist' and user1 == 'Neurologist' and i.timetaken == None:
             tmp += str(i)
             pdf.cell(200, 8, f"{i}", 0, 1)
         

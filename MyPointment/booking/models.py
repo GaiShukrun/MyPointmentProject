@@ -45,7 +45,7 @@ class Appointment(models.Model):
     time = models.CharField(max_length=10, choices=TIME_CHOICES, default="7:30 AM")
     time_ordered = models.DateTimeField(default=datetime.now, blank=True)
     syptoms = models.TextField(null=True, blank=True)
-    timetaken = models.CharField(max_length=10,null=True, blank=True)
+    timetaken = models.CharField(max_length=10,null=True, blank=True,default=None)
     Apperence = models.BooleanField(default=False)
 
     def __str__(self):
