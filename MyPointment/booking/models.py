@@ -49,4 +49,4 @@ class Appointment(models.Model):
     Apperence = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.user.username} | day: {self.day} | time: {self.time}"
+        return f"{self.user.username} | Date: {self.day} | Time: {self.time}"

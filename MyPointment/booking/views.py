@@ -317,17 +317,17 @@ def generatePDF1(request):
 
     for i in mydata:
         if i.service == 'Cardiologist' and i.user == user1  :
-            tmp += str(i)
-            pdf.cell(200, 8, f"{i}", 0, 1)
+            tmp = 'To: ' + i.service + ' | Date: ' + str(i.day) + ' | Time: ' + i.time
+            pdf.cell(200, 8, f"{tmp}", 0, 1)
         if i.service == 'Oncologist' and i.user == user1  :
-            tmp += str(i)
-            pdf.cell(200, 8, f"{i}", 0, 1)
+            tmp = 'To: ' + i.service + ' | Date: ' + str(i.day) + ' | Time: ' + i.time
+            pdf.cell(200, 8, f"{tmp}", 0, 1)
         if i.service == 'Psychiatrist' and i.user == user1  :
-            tmp += str(i)
-            pdf.cell(200, 8, f"{i}", 0, 1)
+            tmp = 'To: ' + i.service + ' | Date: ' + str(i.day) + ' | Time: ' + i.time
+            pdf.cell(200, 8, f"{tmp}", 0, 1)
         if i.service == 'Neurologist' and i.user == user1  :
-            tmp += str(i)
-            pdf.cell(200, 8, f"{i}", 0, 1)
+            tmp = 'To: ' + i.service + ' | Date: ' + str(i.day) + ' | Time: ' + i.time
+            pdf.cell(200, 8, f"{tmp}", 0, 1)
         
 
     pdf.output('report.pdf', 'F')

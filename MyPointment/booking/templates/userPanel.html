@@ -65,6 +65,7 @@
 
     <table>
       <tr>
+        <td>Doctor</td>
         <td>Day</td>
         <td>Time</td>
         <td>Syptoms</td>
@@ -74,6 +75,7 @@
       {% if appointments.count > 0 %}
         {% for appointment in appointments %}
         <tr>
+            <td><p class="list-group mt-2"> {{ appointment.service }}</p></td>
             <td><p class="list-group mt-2"> {{ appointment.day }}</p></td>
             <td><p class="list-group mt-2"> {{ appointment.time }}</p></td>
             <td><p class="list-group mt-2"> {{ appointment.syptoms }}</p></td>
