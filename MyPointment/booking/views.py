@@ -13,6 +13,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse , HttpResponseRedirect
 from django.urls import reverse
+from django.http import HttpResponse,FileResponse
+from fpdf import  FPDF
 
 
 # Create your views here.
@@ -229,18 +231,18 @@ def userUpdateSubmit(request, id):
         'id': id,
     })
 
-def staffPanel(request):
-    tomorrow = datetime.now() + timedelta(1)
-    minDate = tomorrow.strftime('%Y-%m-%d')
-    deltatime = tomorrow + timedelta(days=21)
-    strdeltatime = deltatime.strftime('%Y-%m-%d')
-    maxDate = strdeltatime
-    #Only show the Appointments 21 days from tomorrow
-    items = Appointment.objects.filter(day__range=[minDate, maxDate]).order_by('day', 'time')
+# def staffPanel(request):
+#     tomorrow = datetime.now() + timedelta(1)
+#     minDate = tomorrow.strftime('%Y-%m-%d')
+#     deltatime = tomorrow + timedelta(days=21)
+#     strdeltatime = deltatime.strftime('%Y-%m-%d')
+#     maxDate = strdeltatime
+#     #Only show the Appointments 21 days from tomorrow
+#     items = Appointment.objects.filter(day__range=[minDate, maxDate]).order_by('day', 'time')
 
-    return render(request, 'staffPanel.html', {
-        'items':items,
-    })
+#     return render(request, 'staffPanel.html', {
+#         'items':items,
+#     })
 
 def dayToWeekday(x):
     z = datetime.strptime(x, "%Y-%m-%d")
@@ -288,3 +290,44 @@ def DeleteApp1(request,id):
     appointment = Appointment.objects.get(id=id)
     appointment.delete()
     return HttpResponseRedirect(reverse('userPanel'))
+def generatePDF1(request):
+    pdf = FPDF('P', 'mm', 'A4')
+
+    pdf.add_page()
+
+    pdf.set_font('courier', 'B', 16)
+
+    pdf.cell(40, 10, 'Your Appointments:',0,1)
+
+    pdf.cell(40, 10, '',0,1)
+
+    pdf.set_font('courier', '', 12)
+
+
+    pdf.line(10, 30, 150, 30)
+
+    pdf.line(10, 38, 150, 38)
+
+    mydata = Appointment.objects.all().order_by('day','time')
+    user1 = request.user
+
+    tmp =''
+
+    for i in mydata:
+        if i.service == 'Cardiologist' and i.user == user1  :
+            tmp += str(i)
+            pdf.cell(200, 8, f"{i}", 0, 1)
+        if i.service == 'Oncologist' and i.user == user1  :
+            tmp += str(i)
+            pdf.cell(200, 8, f"{i}", 0, 1)
+        if i.service == 'Psychiatrist' and i.user == user1  :
+            tmp += str(i)
+            pdf.cell(200, 8, f"{i}", 0, 1)
+        if i.service == 'Neurologist' and i.user == user1  :
+            tmp += str(i)
+            pdf.cell(200, 8, f"{i}", 0, 1)
+        
+
+    pdf.output('report.pdf', 'F')
+
+    return FileResponse(open('report.pdf', 'rb'), as_attachment=True, content_type='application/pdf')
