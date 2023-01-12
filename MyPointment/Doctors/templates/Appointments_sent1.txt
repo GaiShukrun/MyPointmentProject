@@ -3,8 +3,8 @@ Hello,
 
 Your Appointments {{user}}
 {% autoescape on %}
- {{data}}
- {% endautoescape %}
+{{data}}
+{% endautoescape %}
 Sincerely,
 Team 7, MyPointment.
 
